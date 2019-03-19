@@ -44,36 +44,32 @@ export default class App extends Component {
       });
   }
 
-  // dogSearch = this.performSearch('dog');
-  // computerSearch = this.performSearch('computers');
-
   render() {
     return (
       <BrowserRouter>
         <div className="container">
           <Search onSearch={this.performSearch}/>
-          <Nav />
+        {/*  <Nav />  */}
           <Switch>
             <Route exact path="/" render={ ()=>
             (this.state.loading)
               ? <p>Loading...</p>
               : <Gallery photos={this.state.photos}/>} />
 
-            <Route path = '/cats'
-            render = { () => (this.state.loading)
-                ? <p> Loading...</p>
-                : <Gallery photos={this.state.photos} />} />
+            <Route exact path="/cats" render={ ()=>
+            (this.state.loading)
+              ? <p>Loading...</p>
+              : <Gallery photos={this.state.photos}/>} />
 
-            <Route path = '/dogs'
-            render = { () => (this.state.loading)
-                ? <p> Loading...</p>
-                : <Gallery photos={this.state.photos} />} />
+            <Route exact path="/dogs" render={ ()=>
+            (this.state.loading)
+              ? <p>Loading...</p>
+              : <Gallery photos={this.state.photos}/>} />
 
-            <Route path = '/computers'
-            render = { () => (this.state.loading)
-                ? <p> Loading...</p>
-                : <Gallery photos={this.state.photos} />} />
-
+            <Route exact path="/computers" render={ ()=>
+            (this.state.loading)
+              ? <p>Loading...</p>
+              : <Gallery photos={this.state.photos}/>} />
 
             <Route component={NotFound} />
           </Switch>

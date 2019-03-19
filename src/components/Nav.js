@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 
-const Nav = (props) => {
-  console.log(props);
-  return (
-    <nav className="main-nav">
-      <ul>
-        <li><NavLink to="/cats">Cats</NavLink></li>
-        <li><NavLink to="/dogs">Dogs</NavLink></li>
-        <li><NavLink to="/computers">Computers</NavLink></li>
-      </ul>
-    </nav>
-  );
-}
+export default class Nav extends Component {
+  state = {
+    topic: 'dogs'
+  }
 
-export default Nav
+  handleLinks = () => {
+    this.props.topicChange(this.state.topic);
+  }
+
+  render() {
+    return (
+      <nav className="main-nav">
+        <ul>
+          <li><NavLink to="/cats">Cats</NavLink></li>
+
+          <li><NavLink to="/dogs" onClick={this.handleLinks}>Dogs</NavLink></li>
+
+          <li><NavLink to="/computers">Computers</NavLink></li>
+        </ul>
+      </nav>
+    );
+  }
+}
