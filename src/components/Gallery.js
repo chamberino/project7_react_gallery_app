@@ -2,7 +2,7 @@ import React from 'react';
 import GalleryItem from './GalleryItem'
 import NoResults from './NoResults'
 
-const Gallery = props => {
+const Gallery = (props) => {
   const images = props.photos;
   let photos;
   if (images.length > 0) {

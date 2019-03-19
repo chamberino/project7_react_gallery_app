@@ -16,6 +16,13 @@ import '../App.css';
 
 import apikey from './config.js'
 
+// const Child = (props) =>
+//   console.log(props.props.match) || (
+//   <div>
+//     <h3>ID: </h3>
+//   </div>
+// )
+
 export default class App extends Component {
   constructor() {
     // calling super() allows us to use 'this' keyword in the context of the app class rather than the component class we're extending from react
@@ -49,27 +56,22 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Search onSearch={this.performSearch}/>
-        {/*  <Nav />  */}
+          <Nav handleLinks={this.performSearch}/>
           <Switch>
             <Route exact path="/" render={ ()=>
             (this.state.loading)
               ? <p>Loading...</p>
               : <Gallery photos={this.state.photos}/>} />
 
-            <Route exact path="/cats" render={ ()=>
+            <Route path="/cats" render={ ()=>
             (this.state.loading)
               ? <p>Loading...</p>
               : <Gallery photos={this.state.photos}/>} />
 
-            <Route exact path="/dogs" render={ ()=>
-            (this.state.loading)
-              ? <p>Loading...</p>
-              : <Gallery photos={this.state.photos}/>} />
+            <Route path="/dogs" render={ (props)=> <Gallery props={props} photos={this.state.photos}/>} />
 
-            <Route exact path="/computers" render={ ()=>
-            (this.state.loading)
-              ? <p>Loading...</p>
-              : <Gallery photos={this.state.photos}/>} />
+            <Route path="/computers" render={ (props)=> <Gallery props={props} photos={this.state.photos}/>} />
+
 
             <Route component={NotFound} />
           </Switch>

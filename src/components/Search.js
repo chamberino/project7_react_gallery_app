@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 
 export default class Search extends Component {
 
@@ -17,22 +16,8 @@ export default class Search extends Component {
     e.currentTarget.reset();
   }
 
-  handleCats = () => {
-    this.props.onSearch('cats');
-  }
-
-  handleDogs = () => {
-    this.props.onSearch('dogs');
-  }
-
-  handleComputers = () => {
-    this.props.onSearch('computers');
-  }
-
-
   render() {
     return (
-      <div>
       <form className="search-form" onSubmit={this.handleSubmit}>
         <input type="search" onChange={this.onSearchChange} name="search" ref={(input) => this.search = input} placeholder="Search" required=""/>
         <button type="submit" className="search-button">
@@ -42,17 +27,6 @@ export default class Search extends Component {
           </svg>
         </button>
       </form>
-
-      <nav className="main-nav">
-        <ul>
-          <li><NavLink onClick={this.handleCats} to="/cats">Cats</NavLink></li>
-
-          <li><NavLink onClick={this.handleDogs} to="/dogs">Dogs</NavLink></li>
-
-          <li><NavLink onClick={this.handleComputers} to="/computers">Computers</NavLink></li>
-        </ul>
-      </nav>
-      </div>
     );
   }
 }
