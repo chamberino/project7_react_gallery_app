@@ -23,7 +23,6 @@ export default class App extends Component {
     this.state = {
       photos: [],
       loading: true,
-      photoUpdate: this.performSearch
     };
   }
 
@@ -33,6 +32,7 @@ export default class App extends Component {
   }
 
   performSearch = (search = 'cats') => {
+    if(this.state.loading=true) {
     axios(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=${search}&per_page=24&page=1&format=json&nojsoncallback=1`)
       .then(response => {
         this.setState({
@@ -43,6 +43,7 @@ export default class App extends Component {
       .catch(error => {
         console.log('Error fetching and parsing data', error);
       });
+    }
   }
 
   render() {
@@ -50,14 +51,17 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Search onSearch={this.performSearch}/>
-          <Nav handleLinks={this.performSearch}/>
+          <Nav/>
           <Switch>
             <Route exact path="/" render={ ()=>
             (this.state.loading)
               ? <p>Loading...</p>
               : <Gallery photos={this.state.photos}/>} />
 
-            <Route path="/search/:id" render={ ({match}) => <URLRender getPhotos={this.performSearch} photos={this.state.photos} match={match}/>} />
+            <Route path="/search/:id" render={ ({match}) =>
+            (this.state.loading)
+            ? <p>Loading...</p>
+            : <URLRender getPhotos={this.performSearch} photos={this.state.photos} match={match}/>} />
 
             <Route component={NotFound} />
           </Switch>
