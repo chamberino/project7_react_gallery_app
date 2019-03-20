@@ -11,17 +11,10 @@ import Nav from './Nav';
 import Search from './Search';
 import Gallery from './Gallery';
 import NotFound from './NotFound';
-
+import URLRender from './URLRender';
 import '../App.css';
 
 import apikey from './config.js'
-
-// const Child = (props) =>
-//   console.log(props.props.match) || (
-//   <div>
-//     <h3>ID: </h3>
-//   </div>
-// )
 
 export default class App extends Component {
   constructor() {
@@ -29,7 +22,8 @@ export default class App extends Component {
     super();
     this.state = {
       photos: [],
-      loading: true
+      loading: true,
+      photoUpdate: this.performSearch
     };
   }
 
@@ -63,15 +57,7 @@ export default class App extends Component {
               ? <p>Loading...</p>
               : <Gallery photos={this.state.photos}/>} />
 
-            <Route path="/cats" render={ ()=>
-            (this.state.loading)
-              ? <p>Loading...</p>
-              : <Gallery photos={this.state.photos}/>} />
-
-            <Route path="/dogs" render={ (props)=> <Gallery props={props} photos={this.state.photos}/>} />
-
-            <Route path="/computers" render={ (props)=> <Gallery props={props} photos={this.state.photos}/>} />
-
+            <Route path="/search/:id" render={ ({match}) => <URLRender getPhotos={this.performSearch} photos={this.state.photos} match={match}/>} />
 
             <Route component={NotFound} />
           </Switch>
